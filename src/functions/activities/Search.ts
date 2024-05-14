@@ -7,14 +7,15 @@ import { Workers } from '../Workers'
 import { Counters, DashboardData } from '../../interface/DashboardData'
 import { GoogleTrends } from '../../interface/GoogleDailyTrends'
 import { GoogleSearch } from '../../interface/Search'
+import { Account } from '../../interface/Account'
 
 
 export class Search extends Workers {
 
     private searchPageURL = 'https://bing.com'
 
-    public async doSearch(page: Page, data: DashboardData) {
-        this.bot.log('SEARCH-BING', 'Starting bing searches')
+    public async doSearch(page: Page, data: DashboardData,account:Account) {
+        this.bot.log('SEARCH-BING', 'Starting bing searches','log',account)
 
         page = await this.bot.browser.utils.getLatestTab(page)
 
@@ -46,9 +47,9 @@ export class Search extends Workers {
         for (let i = 0; i < queries.length; i++) {
             const query = queries[i] as string
 
-            this.bot.log('SEARCH-BING', `${missingPoints} Points Remaining | Query: ${query} | Mobile: ${this.bot.isMobile}`)
+            this.bot.log('SEARCH-BING', `${missingPoints} Points Remaining | Query: ${query} | Mobile: ${this.bot.isMobile}`,'log',account)
 
-            searchCounters = await this.bingSearch(page, query)
+            searchCounters = await this.bingSearch(page, query,account)
             const newMissingPoints = this.calculatePoints(searchCounters)
 
             // If the new point amount is the same as before
@@ -66,13 +67,13 @@ export class Search extends Workers {
 
             // Only for mobile searches
             if (maxLoop > 3 && this.bot.isMobile) {
-                this.bot.log('SEARCH-BING-MOBILE', 'Search didn\'t gain point for 3 iterations, likely bad User-Agent', 'warn')
+                this.bot.log('SEARCH-BING-MOBILE', 'Search didn\'t gain point for 3 iterations, likely bad User-Agent', 'warn',account)
                 break
             }
 
             // If we didn't gain points for 10 iterations, assume it's stuck
             if (maxLoop > 10) {
-                this.bot.log('SEARCH-BING', 'Search didn\'t gain point for 10 iterations aborting searches', 'warn')
+                this.bot.log('SEARCH-BING', 'Search didn\'t gain point for 10 iterations aborting searches', 'warn',account)
                 maxLoop = 0 // Reset to 0 so we can retry with related searches below
                 break
             }
@@ -85,7 +86,7 @@ export class Search extends Workers {
 
         // If we still got remaining search queries, generate extra ones
         if (missingPoints > 0) {
-            this.bot.log('SEARCH-BING', `Search completed but we're missing ${missingPoints} points, generating extra searches`)
+            this.bot.log('SEARCH-BING', `Search completed but we're missing ${missingPoints} points, generating extra searches`,'log',account)
 
             let i = 0
             while (missingPoints > 0) {
@@ -96,9 +97,9 @@ export class Search extends Workers {
                 if (relatedTerms.length > 3) {
                     // Search for the first 2 related terms
                     for (const term of relatedTerms.slice(1, 3)) {
-                        this.bot.log('SEARCH-BING-EXTRA', `${missingPoints} Points Remaining | Query: ${term} | Mobile: ${this.bot.isMobile}`)
+                        this.bot.log('SEARCH-BING-EXTRA', `${missingPoints} Points Remaining | Query: ${term} | Mobile: ${this.bot.isMobile}`,'log',account)
 
-                        searchCounters = await this.bingSearch(page, query.topic)
+                        searchCounters = await this.bingSearch(page, query.topic,account)
                         const newMissingPoints = this.calculatePoints(searchCounters)
 
                         // If the new point amount is the same as before
@@ -117,7 +118,7 @@ export class Search extends Workers {
 
                         // Try 5 more times, then we tried a total of 15 times, fair to say it's stuck
                         if (maxLoop > 5) {
-                            this.bot.log('SEARCH-BING-EXTRA', 'Search didn\'t gain point for 5 iterations aborting searches', 'warn')
+                            this.bot.log('SEARCH-BING-EXTRA', 'Search didn\'t gain point for 5 iterations aborting searches', 'warn',account)
                             return
                         }
                     }
@@ -125,10 +126,10 @@ export class Search extends Workers {
             }
         }
 
-        this.bot.log('SEARCH-BING', 'Completed searches')
+        this.bot.log('SEARCH-BING', 'Completed searches','log',account)
     }
 
-    private async bingSearch(searchPage: Page, query: string) {
+    private async bingSearch(searchPage: Page, query: string, account:Account) {
         const platformControlKey = platform() === 'darwin' ? 'Meta' : 'Control'
 
         // Try a max of 5 times
@@ -168,12 +169,12 @@ export class Search extends Workers {
 
             } catch (error) {
                 if (i === 5) {
-                    this.bot.log('SEARCH-BING', 'Failed after 5 retries... An error occurred:' + error, 'error')
+                    this.bot.log('SEARCH-BING', 'Failed after 5 retries... An error occurred:' + error, 'error',account)
                     break
 
                 }
-                this.bot.log('SEARCH-BING', 'Search failed, An error occurred:' + error, 'error')
-                this.bot.log('SEARCH-BING', `Retrying search, attempt ${i}/5`, 'warn')
+                this.bot.log('SEARCH-BING', 'Search failed, An error occurred:' + error, 'error',account)
+                this.bot.log('SEARCH-BING', `Retrying search, attempt ${i}/5`, 'warn',account)
 
                 // Reset the tabs
                 const lastTab = await this.bot.browser.utils.getLatestTab(searchPage)
@@ -183,7 +184,7 @@ export class Search extends Workers {
             }
         }
 
-        this.bot.log('SEARCH-BING', 'Search failed after 5 retries, ending', 'error')
+        this.bot.log('SEARCH-BING', 'Search failed after 5 retries, ending', 'error',account)
         return await this.bot.browser.func.getSearchPoints()
     }
 
