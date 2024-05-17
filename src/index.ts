@@ -102,7 +102,7 @@ export class MicrosoftRewardsBot {
 
     private async runTasks(accounts: Account[]) {
         for (const account of accounts) {
-            log('MAIN-WORKER', `Started tasks for account ${account}`)
+            log('MAIN-WORKER', `Started tasks for account`,'log',account)
 
             // Desktop Searches, DailySet and More Promotions
             await this.Desktop(account)
@@ -115,7 +115,7 @@ export class MicrosoftRewardsBot {
             // Mobile Searches
             await this.Mobile(account)
 
-            log('MAIN-WORKER', `Completed tasks for account ${account}`)
+            log('MAIN-WORKER', `Completed tasks for account`,'log',account)
         }
 
         log('MAIN-PRIMARY', 'Completed tasks for ALL accounts')
