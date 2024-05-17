@@ -10,6 +10,7 @@ import { ThisOrThat } from './activities/ThisOrThat'
 import { UrlReward } from './activities/UrlReward'
 
 import { DashboardData } from '../interface/DashboardData'
+import { Account } from '../interface/Account'
 
 
 export default class Activities {
@@ -19,9 +20,9 @@ export default class Activities {
         this.bot = bot
     }
 
-    doSearch = async (page: Page, data: DashboardData): Promise<void> => {
+    doSearch = async (page: Page, data: DashboardData, account:Account): Promise<void> => {
         const search = new Search(this.bot)
-        await search.doSearch(page, data)
+        await search.doSearch(page, data,account)
     }
 
     doABC = async (page: Page): Promise<void> => {
