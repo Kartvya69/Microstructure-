@@ -1,22 +1,112 @@
 [
-    {
-        "email": "kartvyajaiswal@gmail.com",
-        "password": "kartvya2745",
-        "proxy": {
-            "url": "",
-            "port": 0,
-            "username": "",
-            "password": ""
-        }
+  {
+    "email": "kartvyajaiswal@gmail.com",
+    "password": "kartvya2745",
+    "proxy": {
+      "url": "",
+      "port": 0,
+      "username": "",
+      "password": ""
+    }
+    },
+  {
+    "email": "Ryomen19472@outlook.com",
+    "password": "kartvya2745",
+    "proxy": {
+      "url": "",
+      "port": 0,
+      "username": "",
+      "password": ""
+    }
     },
     {
-        "email": "email_2",
-        "password": "password_2",
-        "proxy": {
-            "url": "",
-            "port": 0,
-            "username": "",
-            "password": ""
-        }
+    "email": "Gojoxytya294@outlook.com",
+    "password": "kartvya2745",
+    "proxy": {
+      "url": "",
+      "port": 0,
+      "username": "",
+      "password": ""
+    }
+    },
+    {
+      "email": "RaiSo20472@outlook.com",
+      "password": "password_2",
+      "proxy": {
+        "url": "",
+        "port": 0,
+        "username": "",
+        "password": ""
+      }
+    },
+    {
+      "email": "Butnothiside194@outlook.com",
+      "password": "kartvya2745",
+      "proxy": {
+        "url": "",
+        "port": 0,
+        "username": "",
+        "password": ""
+      }
+    },
+    {
+      "email": "Happynation2946@outlook.com",
+      "password": "kartvya2745",
+      "proxy": {
+        "url": "",
+        "port": 0,
+        "username": "",
+        "password": ""
+      }
+    },
+    {
+      "email": "Fnaf19742024@outlook.com",
+      "password": "kartvya2745",
+      "proxy": {
+        "url": "",
+        "port": 0,
+        "username": "",
+        "password": ""
+      }
+    },
+    {
+      "email": "Livinginahappy@outlook.com",
+      "password": "kartvya2745",
+      "proxy": {
+        "url": "",
+        "port": 0,
+        "username": "",
+        "password": ""
+      }
+    },
+    {
+      "email": "Happynation11988@outlook.com",
+      "password": "kartvya2745",
+      "proxy": {
+        "url": "",
+        "port": 0,
+        "username": "",
+        "password": ""
+      }
+    },
+    {
+      "email": "Ivory1047@outlook.com",
+      "password": "kartvya2745",
+      "proxy": {
+        "url": "",
+        "port": 0,
+        "username": "",
+        "password": ""
+      }
+    },
+    {
+      "email": "Ryoekitenkai@outlook.com",
+      "password": "kartvya2745",
+      "proxy": {
+        "url": "",
+        "port": 0,
+        "username": "",
+        "password": ""
+      }
     }
 ]
